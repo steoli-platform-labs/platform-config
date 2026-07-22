@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Namespace
+metadata: {name: sample-api-dev, labels: {environment: dev}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: sample-api-staging, labels: {environment: staging}}
+---
+apiVersion: v1
+kind: Namespace
+metadata: {name: sample-api-production, labels: {environment: production}}

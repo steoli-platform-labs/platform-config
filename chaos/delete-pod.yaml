@@ -1,0 +1,12 @@
+apiVersion: batch/v1
+kind: Job
+metadata: {name: delete-sample-api-pod, namespace: sample-api-dev}
+spec:
+  template:
+    spec:
+      serviceAccountName: chaos-runner
+      restartPolicy: Never
+      containers:
+      - name: kubectl
+        image: bitnami/kubectl:latest
+        command: [sh,-c,"kubectl delete pod -l app.kubernetes.io/name=sample-api --wait=false"]
