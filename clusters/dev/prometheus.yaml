@@ -13,7 +13,7 @@ spec:
       releaseName: prometheus
       skipCrds: true
       valueFiles: []
-      valuesObject:
+      values: |
         crds:
           upgradeJob:
             enabled: true
