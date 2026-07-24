@@ -1,0 +1,8 @@
+{
+  "yaml.schemas": {
+    "kubernetes": [
+      "clusters/dev/*.yaml",
+      "bootstrap/*.yaml"
+    ]
+  }
+}
