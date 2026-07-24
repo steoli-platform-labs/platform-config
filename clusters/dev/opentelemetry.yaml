@@ -8,9 +8,37 @@ spec:
   source:
     repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
     chart: opentelemetry-collector
-    targetRevision: "*"
+    targetRevision: 0.165.0
     helm:
       releaseName: opentelemetry
+      values: |
+        mode: deployment
+
+        image:
+          repository: otel/opentelemetry-collector-contrib
+
+        config:
+          exporters:
+            otlp/tempo:
+              endpoint: tempo.monitoring.svc.cluster.local:4317
+              tls:
+                insecure: true
+
+          receivers:
+            otlp:
+              protocols:
+                grpc:
+                  endpoint: ${env:MY_POD_IP}:4317
+                http:
+                  endpoint: ${env:MY_POD_IP}:4318
+
+          service:
+            pipelines:
+              traces:
+                receivers:
+                  - otlp
+                exporters:
+                  - otlp/tempo
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
