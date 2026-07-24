@@ -12,7 +12,6 @@ spec:
     helm:
       releaseName: prometheus
       skipCrds: true
-      valueFiles: []
       values: |
         crds:
           upgradeJob:

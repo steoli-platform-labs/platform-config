@@ -1,6 +1,8 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
-metadata: {name: tempo, namespace: argocd}
+metadata:
+  name: tempo
+  namespace: argocd
 spec:
   project: default
   source:
@@ -9,8 +11,12 @@ spec:
     targetRevision: "*"
     helm:
       releaseName: tempo
-      valueFiles: []
-  destination: {server: https://kubernetes.default.svc, namespace: monitoring}
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
   syncPolicy:
-    automated: {prune: true, selfHeal: true}
-    syncOptions: [CreateNamespace=true]
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
