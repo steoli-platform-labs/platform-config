@@ -17,6 +17,10 @@ spec:
         imagePullSecrets:
           - name: ghcr-pull
         environment: dev
+        replicaCount: 2
+        autoscaling:
+          minReplicas: 2
+          maxReplicas: 5
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-api-dev
