@@ -24,6 +24,8 @@ spec:
 
         singleBinary:
           replicas: 1
+          persistence:
+            enabled: false
 
         read:
           replicas: 0
@@ -38,6 +40,15 @@ spec:
           enabled: false
 
         resultsCache:
+          enabled: false
+
+        gateway:
+          enabled: false
+
+        lokiCanary:
+          enabled: false
+
+        test:
           enabled: false
   destination:
     server: https://kubernetes.default.svc
