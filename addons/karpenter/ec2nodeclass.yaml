@@ -3,6 +3,6 @@ kind: EC2NodeClass
 metadata: {name: default}
 spec:
   amiSelectorTerms: [{alias: al2023@latest}]
-  role: REPLACE_KARPENTER_NODE_ROLE
+  role: solab-dev-karpenter-node
   subnetSelectorTerms: [{tags: {karpenter.sh/discovery: solab-dev}}]
   securityGroupSelectorTerms: [{tags: {karpenter.sh/discovery: solab-dev}}]
