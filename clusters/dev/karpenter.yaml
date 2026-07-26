@@ -12,6 +12,10 @@ spec:
     helm:
       releaseName: karpenter
       values: |
+        controller:
+          env:
+            - name: AWS_REGION
+              value: eu-north-1
         settings:
           clusterName: solab-dev
   destination:
