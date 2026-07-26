@@ -8,9 +8,12 @@ spec:
   source:
     repoURL: public.ecr.aws/karpenter
     chart: karpenter
-    targetRevision: "*"
+    targetRevision: "1.7.1"
     helm:
       releaseName: karpenter
+      values: |
+        settings:
+          clusterName: solab-dev
   destination:
     server: https://kubernetes.default.svc
     namespace: karpenter
