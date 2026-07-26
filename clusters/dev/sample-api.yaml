@@ -21,6 +21,9 @@ spec:
         autoscaling:
           minReplicas: 2
           maxReplicas: 5
+        secret:
+          enabled: true
+          remoteKey: platform-labs/sample-api
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-api-dev
