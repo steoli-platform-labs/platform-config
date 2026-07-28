@@ -24,7 +24,7 @@ spec:
           maxReplicas: 5
         secret:
           enabled: true
-          remoteKey: platform-labs/sample-api
+          remoteKey: platform-labs/sample-api-dev
   destination:
     server: https://kubernetes.default.svc
     namespace: sample-api-dev
