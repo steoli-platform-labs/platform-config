@@ -14,7 +14,7 @@ spec:
       values: |
         image:
           repository: ghcr.io/steoli-platform-labs/sample-api
-          tag: latest
+          tag: 1.0.0
         imagePullSecrets:
           - name: ghcr-pull
         environment: dev
