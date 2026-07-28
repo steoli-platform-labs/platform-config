@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-api-staging
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/steoli-platform-labs/helm-charts.git
+    targetRevision: main
+    path: charts/sample-api
+    helm:
+      values: |
+        image:
+          repository: ghcr.io/steoli-platform-labs/sample-api
+          tag: latest
+        imagePullSecrets:
+          - name: ghcr-pull
+        environment: staging
+        replicaCount: 1
+        autoscaling:
+          minReplicas: 1
+          maxReplicas: 3
+        secret:
+          enabled: true
+          remoteKey: platform-labs/sample-api-staging
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sample-api-staging
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

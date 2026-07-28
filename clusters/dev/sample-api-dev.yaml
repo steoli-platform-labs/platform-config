@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: sample-api-dev
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/steoli-platform-labs/helm-charts.git
+    targetRevision: main
+    path: charts/sample-api
+    helm:
+      values: |
+        image:
+          repository: ghcr.io/steoli-platform-labs/sample-api
+          tag: latest
+        imagePullSecrets:
+          - name: ghcr-pull
+        environment: dev
+        replicaCount: 2
+        autoscaling:
+          minReplicas: 2
+          maxReplicas: 5
+        secret:
+          enabled: true
+          remoteKey: platform-labs/sample-api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: sample-api-dev
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
