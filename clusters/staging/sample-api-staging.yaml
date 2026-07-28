@@ -10,6 +10,7 @@ spec:
     targetRevision: main
     path: charts/sample-api
     helm:
+      releaseName: sample-api
       values: |
         image:
           repository: ghcr.io/steoli-platform-labs/sample-api
