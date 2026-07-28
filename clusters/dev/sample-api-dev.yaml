@@ -15,8 +15,6 @@ spec:
         image:
           repository: ghcr.io/steoli-platform-labs/sample-api
           tag: 1.0.0
-        imagePullSecrets:
-          - name: ghcr-pull
         environment: dev
         replicaCount: 2
         autoscaling:
