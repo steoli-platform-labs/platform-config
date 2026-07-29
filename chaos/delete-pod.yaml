@@ -1,3 +1,27 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata: {name: chaos-runner, namespace: sample-api-dev}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata: {name: chaos-runner, namespace: sample-api-dev}
+rules:
+- apiGroups: [""]
+  resources: [pods]
+  verbs: [get, list, delete]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata: {name: chaos-runner, namespace: sample-api-dev}
+subjects:
+- kind: ServiceAccount
+  name: chaos-runner
+  namespace: sample-api-dev
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: chaos-runner
+---
 apiVersion: batch/v1
 kind: Job
 metadata: {name: delete-sample-api-pod, namespace: sample-api-dev}
@@ -8,5 +32,11 @@ spec:
       restartPolicy: Never
       containers:
       - name: kubectl
-        image: bitnami/kubectl:latest
-        command: [sh,-c,"kubectl delete pod -l app.kubernetes.io/name=sample-api --wait=false"]
+        image: alpine/kubectl:1.36.2
+        command:
+        - sh
+        - -c
+        - |
+          POD="$(kubectl get pod -l app.kubernetes.io/name=sample-api -o jsonpath='{.items[0].metadata.name}')"
+          echo "Deleting pod ${POD}"
+          kubectl delete pod "$POD" --wait=false
