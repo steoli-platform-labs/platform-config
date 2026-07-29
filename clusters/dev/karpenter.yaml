@@ -18,7 +18,7 @@ spec:
               value: eu-north-1
         replicas: 1
         settings:
-          clusterName: solab-dev
+          clusterName: solab-shared
   destination:
     server: https://kubernetes.default.svc
     namespace: karpenter
